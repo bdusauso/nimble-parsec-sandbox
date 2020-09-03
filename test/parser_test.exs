@@ -12,4 +12,9 @@ defmodule Text.ParserTest do
     str = ~s/keyId="ec0c29ef" algorithm="hs2019" headers="(request-target) digest (created)"/
     assert {:ok, _parts} = Parser.signature(str)
   end
+
+  test "it accepts a mix of comma and whitespaces as parts delimiter" do
+    str = ~s/keyId="ec0c29ef" algorithm="hs2019",headers="(request-target) digest (created)"/
+    assert {:ok, _parts} = Parser.signature(str)
+  end
 end
