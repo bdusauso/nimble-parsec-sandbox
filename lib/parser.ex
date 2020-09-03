@@ -106,6 +106,11 @@ defmodule Text.Parser do
       |> bws()
     end
 
+    def separator(combinator \\ empty()) do
+      combinator
+      |> choice([comma(), rws()])
+    end
+
     def generic_param(combinator \\ empty()) do
       combinator
       |> token()
@@ -137,7 +142,7 @@ defmodule Text.Parser do
     def signature_params(combinator \\ empty()) do
       combinator
       |> optional(signature_param())
-      |> repeat(ignore(comma()) |> optional(signature_param()))
+      |> repeat(ignore(separator()) |> optional(signature_param()))
     end
   end
 
